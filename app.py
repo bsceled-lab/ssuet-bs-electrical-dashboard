@@ -2,624 +2,142 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-st.set_page_config(
-    page_title="SSUET Electrical Engineering Dashboard",
-    page_icon="⚡",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
-
-# ============================================================
-# SSUET ELECTRICAL ENGINEERING FACULTY DATA
-# Source: supplied SSUET BS Electrical Engineering PDF
-# Note: Qualification, experience and research fields are not
-# included in the supplied source, so they are marked accordingly.
-# ============================================================
+st.set_page_config(page_title="SSUET Electrical Engineering", page_icon="⚡", layout="wide")
 
 faculty = [
-    {
-        "Name": "Dr. Muhammad Ibrar ul Haque",
-        "Designation": "Professor",
-        "Role": "Chairperson",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Dr. Tarique Aziz",
-        "Designation": "Assistant Professor",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Dr. Manzar Ahmed",
-        "Designation": "Assistant Professor",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Engr. M. Nadeem Iqbal",
-        "Designation": "Assistant Professor",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Engr. Syed Faisal Hoda",
-        "Designation": "Assistant Professor",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Engr. Fawad Shaukat",
-        "Designation": "Assistant Professor",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Engr. Sheikh Junaid Yawar",
-        "Designation": "Assistant Professor",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Engr. Zafar Ahmed",
-        "Designation": "Assistant Professor",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Engr. Muhammad Javeed",
-        "Designation": "Assistant Professor",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Dr. Andaleeb Ali",
-        "Designation": "Senior Lecturer",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Engr. Faiza Waqqas",
-        "Designation": "Senior Lecturer",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Engr. Aamir Ali",
-        "Designation": "Senior Lecturer",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Engr. Jawad Ali Arshad",
-        "Designation": "Senior Lecturer",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Engr. Jeffery Ali Rizvi",
-        "Designation": "Senior Lecturer",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Bineesh Fayyaz",
-        "Designation": "Senior Lecturer",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Engr. Rabika Tariq",
-        "Designation": "Lecturer",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Engr. Muhammad Muzammil",
-        "Designation": "Lecturer",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Engr. Muhammad Tanveer",
-        "Designation": "Lecturer",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
-    {
-        "Name": "Engr. Mr. Syed Faraz Liaquat",
-        "Designation": "Junior Lecturer",
-        "Role": "",
-        "Qualification": "Not provided in source",
-        "Experience": "Not provided in source",
-        "Specialization": "Not provided in source",
-        "Research Interests": "Not provided in source",
-    },
+("Dr. Muhammad Ibrar ul Haque","Professor","Chairperson",
+"Ph.D. Electronic Engineering (SSUET)\nM.S. Telecommunication (SSUET)\nB.E. Electronic Engineering (NEDUET)",
+"Not published in the available source.","Electrical Engineering","Department teaching, research and research-cluster activities."),
+("Dr. Tarique Aziz","Assistant Professor","",
+"Ph.D. Electrical Engineering (Zhejiang University, China)\nM.Sc. Electrical Engineering (COMSATS University, Islamabad)\nB.E. Electrical Engineering (Q.U.E.S.T., Nawabshah)",
+"Not published in the available source.","Electrical Engineering","Not published in the available source."),
+("Dr. Manzar Ahmed","Assistant Professor","",
+"M.S. Telecommunication (Asian Institute of Technology, Thailand)\nB.E. Electrical Engineering (UET Lahore)",
+"Not published in the available source.","Telecommunication / Electrical Engineering","Not published in the available source."),
+("Engr. M. Nadeem Iqbal","Assistant Professor","",
+"M.S. Electronic Engineering (SSUET)\nM.A. Islamic Studies (University of Karachi)\nPGD Computer & IT (University of Karachi)\nB.E. Electrical Engineering (NEDUET)\nB.Sc. Physics (University of Karachi)",
+"Not published in the available source.","Electrical / Electronic Engineering","SSUET newsletter documents participation in a PSQCA standards meeting."),
+("Engr. Syed Faisal Hoda","Assistant Professor","",
+"M.E. Electrical Engineering, specialization in Telecommunication (NEDUET)\nB.E. Electrical Engineering (NEDUET)",
+"Not published in the available source.","Electrical Engineering / Telecommunication","Not published in the available source."),
+("Engr. Fawad Shaukat","Assistant Professor","",
+"M.S. Communication & Signal Processing (Imperial College London, UK)\nB.E. Electrical Engineering (NEDUET)",
+"Not published in the available source.","Communication & Signal Processing","SSUET documents Signal Processing & Deep Learning as an ELED research-cluster area."),
+("Engr. Sheikh Junaid Yawar","Assistant Professor","",
+"M.E. Energy (NEDUET)\nB.E. Electrical Engineering (NEDUET)",
+"Not published in the available source.","Energy / Electrical Engineering","Not published in the available source."),
+("Engr. Zafar Ahmed","Assistant Professor","",
+"M.S. Power Electronics (NEDUET)\nB.E. Electrical Engineering (NEDUET)",
+"Not published in the available source.","Power Electronics","SSUET documents participation in the Power & Energy System research cluster."),
+("Engr. Muhammad Javeed","Assistant Professor","",
+"M.S. Electrical Telecommunication (SSUET)\nB.S. Electronic Engineering (SSUET)\nB.Sc. Physics & Mathematics (University of Karachi)",
+"Not published in the available source.","Electrical Telecommunication","Not published in the available source."),
+("Dr. Andaleeb Ali","Senior Lecturer","",
+"Not provided in available official source material.","Not published in the available source.","Electrical Engineering","Not published in the available source."),
+("Engr. Faiza Waqqas","Senior Lecturer","",
+"M.S. Telecommunication (SSUET)\nB.S. Electronic Engineering (SSUET)",
+"Not published in the available source.","Telecommunication / Electronic Engineering","Not published in the available source."),
+("Engr. Aamir Ali","Senior Lecturer","",
+"B.E. Electrical Engineering (NEDUET)\nM.E. Power System Engineering (NEDUET)",
+"Not published in the available source.","Power System Engineering","Not published in the available source."),
+("Engr. Jawad Ali Arshad","Senior Lecturer","",
+"M.E. Telecommunication (Hamdard University)\nB.S. Electronic Engineering (SSUET)",
+"Not published in the available source.","Telecommunication / Electronic Engineering","SSUET documents research-cluster participation."),
+("Engr. Jeffery Ali Rizvi","Senior Lecturer","",
+"M.E. Electrical Engineering (University of Windsor, Canada)\nB.S. Electronic Engineering (SSUET)",
+"Not published in the available source.","Electrical Engineering","SSUET documents research-cluster participation."),
+("Bineesh Fayyaz","Senior Lecturer","",
+"Not provided in available official source material.","Not published in the available source.","Electrical Engineering","Not published in the available source."),
+("Engr. Rabika Tariq","Lecturer","",
+"M.S. Electronic Engineering (SSUET)\nM.B.A. Finance (University of Karachi)\nB.S. Electronic Engineering (SSUET)",
+"Not published in the available source.","Electronic Engineering","Not published in the available source."),
+("Engr. Muhammad Muzammil","Lecturer","",
+"M.S. Electrical Engineering (Bahria University)\nB.S. Electrical Engineering (FAST-NUCES)",
+"Not published in the available source.","Electrical Engineering","SSUET newsletter documents research-cluster participation."),
+("Engr. Muhammad Tanveer","Lecturer","",
+"M.E. Industrial Control Automation (Hamdard University)\nB.S. Electronic Engineering (SSUET)",
+"Not published in the available source.","Industrial Control & Automation","Not published in the available source."),
+("Engr. Mr. Syed Faraz Liaquat","Junior Lecturer","",
+"B.S. Electronic Engineering (SSUET)\nM.S. Engineering Management — enrolled (SSUET)",
+"Not published in the available source.","Electronic Engineering / Engineering Management","SSUET departmental activity records participation in faculty activities."),
 ]
+df = pd.DataFrame(faculty, columns=["Name","Designation","Role","Qualification","Experience","Expertise","Research"])
 
-df = pd.DataFrame(faculty)
+st.markdown("""<style>
+.stApp{background:#f5f7fb}.hero{background:linear-gradient(135deg,#071a33,#0f4c81,#168aad);padding:32px 38px;border-radius:22px;color:white;margin-bottom:25px;box-shadow:0 12px 30px #071a3330}.hero h1{margin:0;font-size:38px}.hero p{font-size:17px;opacity:.9}.metric{background:white;border:1px solid #e2e8f0;border-radius:17px;padding:20px;box-shadow:0 5px 18px #0f172a10}.value{font-size:30px;font-weight:800;color:#0f4c81}.label{color:#64748b}.card{background:white;border:1px solid #e2e8f0;border-radius:18px;padding:20px;margin-bottom:14px;box-shadow:0 5px 18px #0f172a0d}.title{font-size:24px;font-weight:800;color:#0f172a}.blue{color:#0f4c81;font-weight:700}.section{font-weight:800;color:#0f4c81;margin-bottom:8px}
+</style>""", unsafe_allow_html=True)
 
-# ============================================================
-# CSS
-# ============================================================
+st.sidebar.markdown("## ⚡ SSUET")
+st.sidebar.caption("Electrical Engineering Faculty Dashboard")
+page=st.sidebar.radio("MENU",["🏠 Overview","👨‍🏫 Faculty Profiles","📊 Analytics","🏛️ Department"])
 
-st.markdown(
-    """
-    <style>
-    .main-title {
-        font-size: 38px;
-        font-weight: 800;
-        margin-bottom: 0;
-    }
+st.markdown('<div class="hero"><h1>⚡ Electrical Engineering Department</h1><p>Sir Syed University of Engineering and Technology · Professional Faculty Information Dashboard</p></div>',unsafe_allow_html=True)
 
-    .subtitle {
-        font-size: 18px;
-        color: #64748b;
-        margin-top: 2px;
-        margin-bottom: 25px;
-    }
-
-    .metric-card {
-        padding: 20px;
-        border-radius: 15px;
-        background: linear-gradient(135deg, #0f172a, #1e3a8a);
-        color: white;
-        min-height: 125px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.10);
-    }
-
-    .metric-number {
-        font-size: 34px;
-        font-weight: 800;
-    }
-
-    .metric-label {
-        font-size: 15px;
-        opacity: 0.9;
-    }
-
-    .faculty-card {
-        border: 1px solid #e2e8f0;
-        border-radius: 14px;
-        padding: 18px;
-        margin-bottom: 12px;
-        background: #ffffff;
-        box-shadow: 0 3px 12px rgba(15,23,42,0.06);
-    }
-
-    .faculty-name {
-        font-size: 20px;
-        font-weight: 750;
-        color: #0f172a;
-    }
-
-    .faculty-role {
-        color: #2563eb;
-        font-weight: 650;
-        margin-top: 3px;
-    }
-
-    .info-box {
-        padding: 18px;
-        border-radius: 12px;
-        background: #f8fafc;
-        border-left: 5px solid #2563eb;
-        margin-bottom: 12px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
-# ============================================================
-# SIDEBAR
-# ============================================================
-
-st.sidebar.title("⚡ SSUET EED")
-st.sidebar.caption("Electrical Engineering Department")
-
-page = st.sidebar.radio(
-    "Navigation",
-    [
-        "🏠 Dashboard",
-        "👨‍🏫 Faculty Directory",
-        "📊 Faculty Statistics",
-        "🏛️ Department Profile",
-    ],
-)
-
-st.sidebar.divider()
-st.sidebar.caption("Faculty information is based on the supplied SSUET program document.")
-
-# ============================================================
-# HEADER
-# ============================================================
-
-st.markdown(
-    '<div class="main-title">⚡ Electrical Engineering Department</div>',
-    unsafe_allow_html=True,
-)
-st.markdown(
-    '<div class="subtitle">Sir Syed University of Engineering and Technology (SSUET)</div>',
-    unsafe_allow_html=True,
-)
-
-# ============================================================
-# DASHBOARD
-# ============================================================
-
-if page == "🏠 Dashboard":
-
-    st.subheader("Department Dashboard")
-
-    total = len(df)
-    professors = len(df[df["Designation"] == "Professor"])
-    associate = len(df[df["Designation"] == "Associate Professor"])
-    assistant = len(df[df["Designation"] == "Assistant Professor"])
-    senior = len(df[df["Designation"] == "Senior Lecturer"])
-    lecturers = len(df[df["Designation"] == "Lecturer"])
-    junior = len(df[df["Designation"] == "Junior Lecturer"])
-
-    c1, c2, c3, c4 = st.columns(4)
-
-    with c1:
-        st.markdown(
-            f'<div class="metric-card"><div class="metric-number">{total}</div>'
-            f'<div class="metric-label">Total Faculty</div></div>',
-            unsafe_allow_html=True,
-        )
-
-    with c2:
-        st.markdown(
-            f'<div class="metric-card"><div class="metric-number">{professors}</div>'
-            f'<div class="metric-label">Professor</div></div>',
-            unsafe_allow_html=True,
-        )
-
-    with c3:
-        st.markdown(
-            f'<div class="metric-card"><div class="metric-number">{assistant}</div>'
-            f'<div class="metric-label">Assistant Professors</div></div>',
-            unsafe_allow_html=True,
-        )
-
-    with c4:
-        st.markdown(
-            f'<div class="metric-card"><div class="metric-number">{senior}</div>'
-            f'<div class="metric-label">Senior Lecturers</div></div>',
-            unsafe_allow_html=True,
-        )
-
+if page=="🏠 Overview":
+    st.subheader("Department at a Glance")
+    vals=[("Total Faculty",len(df)),("Professor",(df.Designation=="Professor").sum()),("Assistant Professor",(df.Designation=="Assistant Professor").sum()),("Senior Lecturer",(df.Designation=="Senior Lecturer").sum()),("Lecturer / Junior",((df.Designation=="Lecturer")|(df.Designation=="Junior Lecturer")).sum())]
+    cs=st.columns(5)
+    for c,(label,val) in zip(cs,vals):
+        c.markdown(f'<div class="metric"><div class="value">{val}</div><div class="label">{label}</div></div>',unsafe_allow_html=True)
     st.write("")
+    a,b=st.columns([1.2,1])
+    with a:
+        counts=df.Designation.value_counts().reset_index(); counts.columns=["Designation","Faculty"]
+        st.plotly_chart(px.bar(counts,x="Designation",y="Faculty",text="Faculty",title="Faculty by Academic Rank"),use_container_width=True)
+    with b:
+        st.subheader("Academic Programs")
+        for x in ["BS Electrical Engineering","BS Renewable Energy System","B.E Tech (Electrical)","MS Electrical Engineering"]:
+            st.markdown(f'<div class="card">🎓 <b>{x}</b></div>',unsafe_allow_html=True)
+    st.info("The department was established in September 2014 and the first batch was enrolled in Spring 2015.")
 
-    left, right = st.columns([1.2, 1])
+elif page=="👨‍🏫 Faculty Profiles":
+    st.subheader("👨‍🏫 Faculty Profiles")
+    x,y=st.columns([2,1])
+    search=x.text_input("🔎 Search faculty",placeholder="Type a name...")
+    rank=y.selectbox("Academic rank",["All"]+sorted(df.Designation.unique()))
+    f=df.copy()
+    if search: f=f[f.Name.str.contains(search,case=False,na=False)]
+    if rank!="All": f=f[f.Designation==rank]
+    names=f.Name.tolist()
+    if names:
+        tabs=st.tabs(names)
+        for tab,(_,p) in zip(tabs,f.iterrows()):
+            with tab:
+                st.markdown(f'<div class="card"><div class="title">👤 {p.Name}</div><div class="blue">{p.Designation}{" · "+p.Role if p.Role else ""}</div></div>',unsafe_allow_html=True)
+                c1,c2=st.columns(2)
+                with c1:
+                    st.markdown(f'<div class="card"><div class="section">🎓 Qualification</div>{p.Qualification.replace(chr(10),"<br>")}</div>',unsafe_allow_html=True)
+                with c2:
+                    st.markdown(f'<div class="card"><div class="section">⏱️ Professional Experience</div>{p.Experience}</div>',unsafe_allow_html=True)
+                c3,c4=st.columns(2)
+                with c3: st.markdown(f'<div class="card"><div class="section">🔬 Expertise</div>{p.Expertise}</div>',unsafe_allow_html=True)
+                with c4: st.markdown(f'<div class="card"><div class="section">📚 Research / Academic Activity</div>{p.Research}</div>',unsafe_allow_html=True)
+                st.caption("Missing experience is intentionally not estimated; add verified information from an official CV/profile.")
+    else: st.warning("No matching faculty member.")
 
-    with left:
-        st.subheader("Faculty by Designation")
+elif page=="📊 Analytics":
+    st.subheader("📊 Faculty Analytics")
+    counts=df.Designation.value_counts().reset_index(); counts.columns=["Designation","Faculty"]
+    c1,c2=st.columns(2)
+    with c1: st.plotly_chart(px.pie(counts,names="Designation",values="Faculty,hole=.45".split(",")[0],title="Faculty Composition",hole=.45),use_container_width=True)
+    with c2: st.plotly_chart(px.bar(counts,x="Designation",y="Faculty",text="Faculty",title="Academic Rank Distribution"),use_container_width=True)
+    known=~df.Qualification.str.startswith("Not provided")
+    a,b=st.columns(2); a.metric("Profiles with qualification data",int(known.sum())); b.metric("Profiles needing official data",int((~known).sum()))
+    st.dataframe(df[["Name","Designation","Role","Qualification","Experience","Expertise"]],use_container_width=True,hide_index=True)
 
-        counts = (
-            df["Designation"]
-            .value_counts()
-            .rename_axis("Designation")
-            .reset_index(name="Faculty")
-        )
-
-        fig = px.bar(
-            counts,
-            x="Designation",
-            y="Faculty",
-            text="Faculty",
-            title="Faculty Distribution",
-        )
-        fig.update_layout(
-            xaxis_title="Designation",
-            yaxis_title="Number of Faculty",
-            showlegend=False,
-        )
-        st.plotly_chart(fig, use_container_width=True)
-
-    with right:
-        st.subheader("Programs")
-
-        programs = [
-            "BS Electrical Engineering",
-            "BS Renewable Energy System",
-            "B.E Tech (Electrical)",
-            "MS Electrical Engineering",
-        ]
-
-        for program in programs:
-            st.markdown(
-                f'<div class="info-box">🎓 <b>{program}</b></div>',
-                unsafe_allow_html=True,
-            )
-
-    st.subheader("Department Overview")
-
-    st.markdown(
-        """
-        <div class="info-box">
-        The Department of Electrical Engineering was established in September 2014
-        and its first batch was enrolled in Spring 2015. The department operates
-        under the Faculty of Electrical and Computer Engineering (FoECE).
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.info(
-        "The supplied source describes the department's faculty as experienced, "
-        "well-qualified and involved in teaching and research activities."
-    )
-
-
-# ============================================================
-# FACULTY DIRECTORY
-# ============================================================
-
-elif page == "👨‍🏫 Faculty Directory":
-
-    st.subheader("👨‍🏫 Faculty Directory")
-    st.caption(f"{len(df)} faculty members listed in the supplied SSUET source.")
-
-    search = st.text_input(
-        "🔎 Search faculty",
-        placeholder="Search by faculty name...",
-    )
-
-    designations = ["All"] + sorted(df["Designation"].unique().tolist())
-
-    designation_filter = st.selectbox(
-        "Filter by designation",
-        designations,
-    )
-
-    filtered = df.copy()
-
-    if search.strip():
-        filtered = filtered[
-            filtered["Name"].str.contains(
-                search.strip(),
-                case=False,
-                na=False,
-            )
-        ]
-
-    if designation_filter != "All":
-        filtered = filtered[
-            filtered["Designation"] == designation_filter
-        ]
-
-    st.write(f"**Showing {len(filtered)} faculty member(s)**")
-
-    for _, person in filtered.iterrows():
-
-        role = f" • {person['Role']}" if person["Role"] else ""
-
-        st.markdown(
-            f"""
-            <div class="faculty-card">
-                <div class="faculty-name">👤 {person['Name']}</div>
-                <div class="faculty-role">
-                    {person['Designation']}{role}
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-        with st.expander(f"View profile — {person['Name']}"):
-            col1, col2 = st.columns(2)
-
-            with col1:
-                st.write("**Designation**")
-                st.write(person["Designation"])
-
-                st.write("**Role**")
-                st.write(person["Role"] if person["Role"] else "Not specified")
-
-                st.write("**Qualification**")
-                st.write(person["Qualification"])
-
-            with col2:
-                st.write("**Experience**")
-                st.write(person["Experience"])
-
-                st.write("**Specialization**")
-                st.write(person["Specialization"])
-
-                st.write("**Research Interests**")
-                st.write(person["Research Interests"])
-
-
-# ============================================================
-# STATISTICS
-# ============================================================
-
-elif page == "📊 Faculty Statistics":
-
-    st.subheader("📊 Faculty Statistics")
-
-    counts = (
-        df["Designation"]
-        .value_counts()
-        .rename_axis("Designation")
-        .reset_index(name="Faculty")
-    )
-
-    c1, c2 = st.columns(2)
-
-    with c1:
-        fig1 = px.pie(
-            counts,
-            names="Designation",
-            values="Faculty",
-            title="Faculty by Designation",
-            hole=0.4,
-        )
-        st.plotly_chart(fig1, use_container_width=True)
-
-    with c2:
-        fig2 = px.bar(
-            counts,
-            x="Designation",
-            y="Faculty",
-            text="Faculty",
-            title="Designation Count",
-        )
-        fig2.update_layout(
-            xaxis_title="Designation",
-            yaxis_title="Faculty",
-        )
-        st.plotly_chart(fig2, use_container_width=True)
-
-    st.subheader("Faculty Data Table")
-
-    display_df = df[
-        ["Name", "Designation", "Role"]
-    ].copy()
-
-    st.dataframe(
-        display_df,
-        use_container_width=True,
-        hide_index=True,
-    )
-
-
-# ============================================================
-# DEPARTMENT PROFILE
-# ============================================================
-
-elif page == "🏛️ Department Profile":
-
+else:
     st.subheader("🏛️ Department Profile")
+    st.markdown("**Established:** September 2014  
+**First batch:** Spring 2015  
+**Faculty:** Faculty of Electrical and Computer Engineering (FoECE)")
+    st.markdown("### 🎓 Programs")
+    st.write("• BS Electrical Engineering\n• BS Renewable Energy System\n• B.E Tech (Electrical)\n• MS Electrical Engineering")
+    st.markdown("### 🔬 Key Learning Areas")
+    st.write("Electrical Power Systems · Electrical Instrumentations · Electrical Power Flow · Electrical Machine Design · Renewable Energy Systems · Embedded Systems")
+    st.markdown("### 🎯 Vision")
+    st.write("The department aims to enhance teaching and research, provide excellent education, develop professional and entrepreneurial skills, contribute to the national economy and meet international requirements.")
+    st.markdown("### 🚀 Mission")
+    st.write("The department promotes a practical environment connected with theoretical knowledge, excellence in education and industrial practices, strong foundations for future challenges, and ethical professional practice.")
 
-    st.markdown(
-        """
-        ### About the Department
-
-        The Department of Electrical Engineering was established in
-        **September 2014**, and the first batch was enrolled in **Spring 2015**.
-
-        The department operates under the **Faculty of Electrical and Computer
-        Engineering (FoECE)**.
-        """
-    )
-
-    st.divider()
-
-    st.subheader("🎓 Academic Programs")
-
-    programs = [
-        ("BS Electrical Engineering", "Undergraduate"),
-        ("BS Renewable Energy System", "Undergraduate"),
-        ("B.E Tech (Electrical)", "Undergraduate"),
-        ("MS Electrical Engineering", "Postgraduate"),
-    ]
-
-    for name, level in programs:
-        col1, col2 = st.columns([3, 1])
-        with col1:
-            st.markdown(f"**{name}**")
-        with col2:
-            st.write(level)
-
-    st.divider()
-
-    st.subheader("🎯 Vision")
-
-    st.write(
-        "The department aims to enhance the quality of teaching and research, "
-        "provide excellent education, develop professional and entrepreneurial "
-        "skills, contribute to the national economy, address market challenges, "
-        "and meet international requirements."
-    )
-
-    st.subheader("🚀 Mission")
-
-    st.write(
-        "The department promotes a practical environment connected with "
-        "theoretical knowledge for education and research, with emphasis on "
-        "professional excellence, industrial practices, strong foundations, "
-        "morals, dignity, and ethical professional practice."
-    )
-
-    st.divider()
-
-    st.subheader("🔬 Key Learning Areas")
-
-    areas = [
-        "Electrical Power Systems",
-        "Electrical Instrumentations",
-        "Electrical Power Flow",
-        "Electrical Machine Design",
-        "Renewable Energy Systems",
-        "Embedded Systems",
-    ]
-
-    cols = st.columns(3)
-
-    for i, area in enumerate(areas):
-        with cols[i % 3]:
-            st.markdown(
-                f'<div class="info-box">⚡ {area}</div>',
-                unsafe_allow_html=True,
-            )
-
-    st.caption(
-        "Source: supplied BS Electrical Engineering — Sir Syed University of "
-        "Engineering and Technology document."
-    )
+st.divider()
+st.caption("SSUET Electrical Engineering Faculty Dashboard · Verify information against the latest official university records.")
