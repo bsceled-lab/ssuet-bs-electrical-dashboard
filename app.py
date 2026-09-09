@@ -127,7 +127,14 @@ elif page=="📊 Analytics":
 
 else:
     st.subheader("🏛️ Department Profile")
-    st.markdown("**Established:** September 2014  
+  st.markdown("""
+<div class="section-card">
+<h3>🏛️ Department History</h3>
+<p><strong>Established:</strong> September 2014</p>
+<p><strong>First Batch:</strong> Spring 2015</p>
+<p><strong>Faculty:</strong> Electrical Engineering Department, FoECE</p>
+</div>
+""", unsafe_allow_html=True)
 **First batch:** Spring 2015  
 **Faculty:** Faculty of Electrical and Computer Engineering (FoECE)")
     st.markdown("### 🎓 Programs")
